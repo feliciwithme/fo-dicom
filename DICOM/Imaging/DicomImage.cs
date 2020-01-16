@@ -240,6 +240,9 @@ namespace Dicom.Imaging
                 {
                     foreach (var overlay in _overlays)
                     {
+                        if (overlay.Data is Dicom.IO.Buffer.EmptyBuffer) //fixed:If overlay.data is empty, an exception will be thrown
+                            continue;
+                        
                         if (frame + 1 < overlay.OriginFrame
                             || frame + 1 > overlay.OriginFrame + overlay.NumberOfFrames - 1) continue;
 
